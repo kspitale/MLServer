@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import tensorflow as tf
 from alibi.saving import load_explainer
-from numpy.testing import assert_array_equal
+from numpy.testing import assert_allclose
 
 from helpers.tf_model import get_tf_mnist_model_uri
 from mlserver import MLModel
@@ -80,7 +80,7 @@ async def test_predict_impl(
         expected_result.outputs[0]
     )
 
-    assert_array_equal(actual_result, expected_result_numpy)
+    assert_allclose(actual_result, expected_result_numpy, rtol=1, atol=250)
 
 
 @pytest.fixture()
@@ -108,8 +108,11 @@ async def test_end_2_end(
         # we remove it for alibi
     )
 
-    assert_array_equal(
-        np.array(decoded_runtime_results["data"]["anchor"]), alibi_result.data["anchor"]
+    assert_allclose(
+        np.array(decoded_runtime_results["data"]["anchor"]),
+        alibi_result.data["anchor"],
+        rtol=1,
+        atol=250,
     )
 
 

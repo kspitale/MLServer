@@ -19,14 +19,6 @@ TESTDATA_PATH = os.path.join(TESTS_PATH, "testdata")
 TESTDATA_CACHE_PATH = os.path.join(TESTDATA_PATH, ".cache")
 
 
-def pytest_collection_modifyitems(items):
-    """
-    Add pytest.mark.asyncio marker to every test.
-    """
-    for item in items:
-        item.add_marker("asyncio")
-
-
 @pytest.fixture
 def dataset() -> tuple:
     n = 4
@@ -42,7 +34,6 @@ def model_signature(dataset: tuple) -> ModelSignature:
     signature = infer_signature(X, y)
 
     signature.inputs.inputs[0]._name = "foo"
-    signature.outputs.inputs[0]._name = "bar"
 
     return signature
 
