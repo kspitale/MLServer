@@ -14,7 +14,7 @@ fi
 _updateVersion() {
   local _newVersion=$1
   local _versionPy=$2
-
+  # Command may have to be updated if run on mac - https://stackoverflow.com/questions/19456518/error-when-using-sed-with-find-command-on-os-x-invalid-command-code
   sed \
     -i "s/^__version__ = \"\(.*\)\"$/__version__ = \"$_newVersion\"/" \
     "$_versionPy"
